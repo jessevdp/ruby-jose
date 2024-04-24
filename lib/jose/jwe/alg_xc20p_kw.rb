@@ -61,7 +61,6 @@ class JOSE::JWE::ALG_XC20P_KW < Struct.new(:cipher_name, :bits, :iv, :tag)
       key = key.kty.derive_key
     end
     new_alg = JOSE::JWE::ALG_XC20P_KW.new(cipher_name, bits, iv || SecureRandom.random_bytes(24))
-    derived_key = key
     aad = ''
     plain_text = decrypted_key
     cipher_text, new_alg.tag = JOSE.xchacha20poly1305_module().xchacha20poly1305_aead_encrypt(key, new_alg.iv, aad, plain_text)
